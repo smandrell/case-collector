@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from threading import Thread
 import pandas as pd
 
-# wildcard characters = Marin -> %, Santa Clara -> *
+## wildcard characters = Marin -> %, Santa Clara -> *
 
 SEARCH_TEXT = "%123"
 
