@@ -7,12 +7,17 @@ import pandas as pd
 
 SEARCH_TEXT = "%123"
 
+# Try to search as general as possible first!!
+# %12% -->
+
+
 url = 'http://apps.marincounty.org/BeaconRoa/BeaconROASearch.aspx'
 
 options = webdriver.ChromeOptions()
 options.add_argument(argument="headless")  # This opens the browser silently in the background
 
-driver = webdriver.Chrome(executable_path='resources/chromedriver.exe', options=options)
+# Use the the correct chromedriver-*.exe for whatever OS your are using (mac, windows, linux)
+driver = webdriver.Chrome(executable_path='resources/chromedriver-windows.exe', options=options)
 
 driver.get(url=url)
 
@@ -47,7 +52,7 @@ threads = []
 for field in inputs:
     options = webdriver.ChromeOptions()
     options.add_argument(argument="headless")  # This opens the browser silently in the background
-    driver = webdriver.Chrome(executable_path='resources/chromedriver.exe', options=options)
+    driver = webdriver.Chrome(executable_path='resources/chromedriver-windows.exe', options=options)
     driver.get(url=url)
 
     field_name = field.get('id')
@@ -58,7 +63,7 @@ for field in inputs:
 for t in threads:
     t.join()
 
-print(len(dfs))
+print(dfs)
 
 #### IDEA ####
 # Just take the search text and hit every possible input field

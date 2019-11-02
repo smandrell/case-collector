@@ -6,7 +6,7 @@ SEARCH_TEXT = '%123'
 
 url = 'http://apps.marincounty.org/BeaconRoa/BeaconROASearch.aspx'
 
-driver = webdriver.Chrome(executable_path='resources/chromedriver.exe')
+driver = webdriver.Chrome(executable_path='resources/chromedriver-windows.exe')
 
 driver.get(url=url)
 

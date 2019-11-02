@@ -1,31 +1,30 @@
-from selenium import webdriver
 from bs4 import BeautifulSoup
 import pandas as pd
+import scrapy
 
-SEARCH_TEXT = "testtt"
+SEARCH_TEXT = "%123"
 
-url = 'http://apps.marincounty.org/BeaconRoa/BeaconROASearch.aspx'
+dfs = []
 
-driver = webdriver.Chrome(executable_path='resources/chromedriver.exe')
 
-driver.get(url=url)
+def scrape_data(response):
+    b_soup = BeautifulSoup(response.body, "lxml")
+    tables = b_soup.find_all('table')
+    if not tables:
+        return
+    table = tables[0]
+    df = pd.read_html(str(table))
+    dfs.append(df)
 
-caseNumberElement = driver.find_element_by_id("txtCaseType")
 
-caseNumberElement.send_keys(SEARCH_TEXT)
+class CourtRecordScraper(scrapy.Spider):
+    name = "court_records"
 
-search_button = driver.find_element_by_name("btnSearch")
+    start_urls = ['http://apps.marincounty.org/BeaconRoa/BeaconROASearch.aspx']
 
-search_button.click()
-
-soup = BeautifulSoup(driver.page_source, "lxml")
-
-table = soup.find_all('table')
-
-print("HERE: " + str(table))
-
-df = pd.read_html(str(table))
-
-print(df)
-#
-# print("PAGE TITLE: " + driver.title)
+    def parse(self, response):
+        return scrapy.FormRequest.from_response(
+            response,
+            formdata={"txtCaseNumber": SEARCH_TEXT},
+            callback=scrape_data
+        )
