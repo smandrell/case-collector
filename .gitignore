@@ -1,3 +1,5 @@
 .idea/
 venv/
 request_results.html
+case_collector/ghostdriver.log
+case_collector/case_collector/spiders/__pycache__/
