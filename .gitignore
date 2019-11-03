@@ -3,3 +3,4 @@ venv/
 request_results.html
 case_collector/ghostdriver.log
 case_collector/case_collector/spiders/__pycache__/
+case_collector/case_collector/__pycache__/
