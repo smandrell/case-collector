@@ -12,7 +12,8 @@ url = 'http://apps.marincounty.org/BeaconRoa/BeaconROASearch.aspx'
 options = webdriver.ChromeOptions()
 options.add_argument(argument="headless")  # This opens the browser silently in the background
 
-driver = webdriver.Chrome(executable_path='resources/chromedriver.exe', options=options)
+# Use the the correct chromedriver-*.exe for whatever OS your are using (mac, windows, linux)
+driver = webdriver.Chrome(executable_path='resources/chromedriver-mac.exe', options=options)
 
 driver.get(url=url)
 

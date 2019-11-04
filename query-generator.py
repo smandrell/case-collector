@@ -1,9 +1,4 @@
-# The method that prints all
-# possible integers of length k.
-# It is mainly a wrapper over
-# recursive function generateAllKLengthRec()
 total_queries = []
-
 
 def generate(set, k):
     n = len(set)
@@ -17,9 +12,10 @@ def generateHelper(set, prefix, n, k):
     # Base case: k is 0,
     # print prefix
     if (k == 0):
-        total_queries.append(int(prefix))
-        print(prefix)
-        return
+        total_queries.append(prefix)
+        if len(total_queries) == 1000:
+            print(total_queries)
+        return total_queries
 
     # One by one add all characters
     # from set and recursively

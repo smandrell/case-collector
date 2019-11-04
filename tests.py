@@ -6,7 +6,8 @@ SEARCH_TEXT = '%123'
 
 url = 'http://apps.marincounty.org/BeaconRoa/BeaconROASearch.aspx'
 
-driver = webdriver.Chrome(executable_path='resources/chromedriver.exe')
+# Use the the correct chromedriver-*.exe for whatever OS your are using (mac, windows, linux)
+driver = webdriver.Chrome(executable_path='resources/chromedriver-mac.exe')
 
 driver.get(url=url)
 
