@@ -8,7 +8,6 @@ SEARCH_TEXT = "%123%"
 
 dfs = []
 
-
 class CourtRecordScraper(scrapy.Spider):
     name = "record_scraper"
 
@@ -17,9 +16,12 @@ class CourtRecordScraper(scrapy.Spider):
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
-        self.driver = webdriver.Chrome(executable_path='../resources/chromedriver-windows.exe', chrome_options=options)
+        #initialize query array
+
+        self.driver = webdriver.Chrome(executable_path="../resources/chromedriver-mac.exe", chrome_options=options)
 
     def parse(self, response):
+        #parse for n different queries
         self.driver.get(url=response.url)
         case_num = self.driver.find_element_by_id("txtCaseNumber")
         case_num.send_keys(SEARCH_TEXT)
