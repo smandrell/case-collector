@@ -3,7 +3,7 @@
 # Please refer to the documentation for information on how to create and manage
 # your spiders.
 
-#documentation: http://crawl.blog/scrapy-loop/ for looping the crawler using Twisted rules
+# documentation: http://crawl.blog/scrapy-loop/ for looping the crawler using Twisted rules
 
 from scrapy.crawler import CrawlerProcess
 import case_collector.case_collector.spiders.record_scraper as record_scraper
@@ -14,22 +14,20 @@ process = CrawlerProcess(settings={
     'FEED_URI': 'items.json'
 })
 
-i = 126
-queries = query_gen.run_query_generator()
-queries_try = ["%123%", "%123%", "%123%"]
 
-def _crawl(result, spider):
-    global i
+def crawl(result, spider):
+    queries = query_gen.run_query_generator()
+    i = len(queries) / 5
     # multithread and paralellize this
-    #implement how to change SEARCH_TEXT in record_scraper
-    while (i >= 125):
+    # implement how to change SEARCH_TEXT in record_scraper
+    while i >= 198:
         record_scraper.change_query_term(queries[i])
         deferred = process.crawl(spider)
         i -= 1
-        deferred.addCallback(_crawl, spider)
+        deferred.addCallback(crawl, spider)
         return deferred
 
 
-_crawl(None, record_scraper.CourtRecordScraper)
-process.start() # the script will block here until the crawling is finished
+crawl(None, record_scraper.CourtRecordScraper)
+process.start()  # the script will block here until the crawling is finished
 record_scraper.display_dfs()
