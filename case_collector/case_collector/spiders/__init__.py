@@ -14,16 +14,20 @@ process = CrawlerProcess(settings={
     'FEED_URI': 'items.json'
 })
 
+queries = query_gen.generate(3)
+print(len(queries))
+query_index = len(queries) // 5
+print(query_index)
+
 
 def crawl(result, spider):
-    queries = query_gen.run_query_generator()
-    i = len(queries) / 5
     # multithread and paralellize this
     # implement how to change SEARCH_TEXT in record_scraper
-    while i >= 198:
-        record_scraper.change_query_term(queries[i])
+    global query_index
+    while query_index >= 198:
+        record_scraper.change_query_term(queries[query_index])
         deferred = process.crawl(spider)
-        i -= 1
+        query_index -= 1
         deferred.addCallback(crawl, spider)
         return deferred
 
